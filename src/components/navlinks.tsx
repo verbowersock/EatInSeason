@@ -1,11 +1,26 @@
+'use client';
 import Link from 'next/link';
 import React from 'react';
+import {
+  SignInButton,
+  SignOutButton,
+  SignUpButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+} from '@clerk/nextjs';
+import Image from 'next/image';
 
 type NavlinksProps = {
   open?: boolean;
+  onClose: () => void;
 };
 
-const Navlinks = ({ open }: NavlinksProps) => {
+const Navlinks = ({ open, onClose }: NavlinksProps) => {
+  const closeMenu = () => {
+    onClose();
+  };
+
   console.log('open', open);
   return (
     <div className='flex w-full flex-col justify-between md:flex-row'>
@@ -14,21 +29,49 @@ const Navlinks = ({ open }: NavlinksProps) => {
           open ? 'my-6 ml-10 flex-col space-y-6 pt-12 ' : 'flex-row'
         }`}
       >
-        <Link
-          href='/signup'
-          className='nav_button bg-leafyGreen rounded-md px-4 text-black duration-300 ease-in-out hover:scale-110 hover:transform'
-        >
-          Sign Up
-        </Link>
-        <Link href='/login' className='nav_button'>
-          Login
-        </Link>
+        <SignedOut>
+          <SignUpButton mode='modal'>
+            <button
+              onClick={closeMenu}
+              className='nav_button rounded-md bg-leafyGreen px-4 text-black duration-300 ease-in-out hover:scale-110 hover:transform'
+            >
+              Sign Up
+            </button>
+          </SignUpButton>
+          <SignInButton mode='modal'>
+            <button onClick={closeMenu} className='nav_button'>
+              Login
+            </button>
+          </SignInButton>
+        </SignedOut>
+        <SignedIn>
+          {open && (
+            <div className='mb-6'>
+              <UserButton />
+              <SignOutButton>
+                <div className='nav_button !mx-2 mt-6 flex'>
+                  Sign Out{' '}
+                  <Image
+                    priority
+                    src='/assets/svg/logout.svg'
+                    height={25}
+                    width={25}
+                    alt='logout'
+                    className='ml-2'
+                  />
+                </div>
+              </SignOutButton>
+            </div>
+          )}
+        </SignedIn>
       </div>
+
       <hr
         className={`${
           open ? 'block' : 'hidden'
-        } bg-leafyGreen/30 my-2 h-px border-0 `}
+        } my-2 h-px border-0 bg-leafyGreen/30 `}
       />
+
       <div
         className={`${open ? 'mt-6' : 'mt-0'}
         ml-10 mt-6 flex flex-col space-y-6 md:ml-0 md:mt-0 md:flex-row  md:space-x-10 md:space-y-0`}
@@ -45,6 +88,15 @@ const Navlinks = ({ open }: NavlinksProps) => {
         >
           Contact
         </Link>
+        {!open && (
+          <div className='hidden md:flex'>
+            <SignedIn>
+              <div className='px-10'>
+                <UserButton />
+              </div>
+            </SignedIn>
+          </div>
+        )}
       </div>
     </div>
   );

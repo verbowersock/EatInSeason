@@ -48,6 +48,9 @@ body {
   @apply mx-10 ml-0 w-[fit-content] py-1 text-lg text-white md:ml-0 md:py-1 md:text-xl;
 }
 
+.cl-userButtonTrigger {
+  @apply focus:ring focus:ring-leafyGreen;
+}
 /* Hamburger Menu */
 .hamburger {
   cursor: pointer;

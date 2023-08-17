@@ -3,7 +3,8 @@ import { Amatic_SC, Poppins } from 'next/font/google';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import Navigation from '@/components/nav';
-import ProvidersWrapper from './ProvidersWrapper';
+import { ClerkProvider } from '@clerk/nextjs';
+import UserContext from '@/context/context';
 
 const main = Poppins({
   weight: ['400', '600'],
@@ -29,10 +30,12 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={`${main.variable} ${heading.variable}`}>
-        <ProvidersWrapper>
-          <Navigation />
-          {children}
-        </ProvidersWrapper>
+        <UserContext>
+          <ClerkProvider>
+            <Navigation />
+            {children}
+          </ClerkProvider>
+        </UserContext>
       </body>
     </html>
   );

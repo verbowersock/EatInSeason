@@ -1,18 +1,23 @@
 'use client';
-import React, { useState } from 'react';
-import Link from 'next/link';
+import React, { useEffect, useState } from 'react';
+import { UserId } from '../context/context';
+import { useContext } from 'react';
 import Navlinks from './navlinks';
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
-    console.log('click');
     setIsMenuOpen(!isMenuOpen);
   };
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
+
   return (
     <div className='absolute right-0 top-0 z-50 flex w-full justify-between p-5 '>
-      <Navlinks />
+      <Navlinks onClose={closeMenu} />
 
       {/*Hamburger Button*/}
       <div>
@@ -36,7 +41,7 @@ const Navigation = () => {
           isMenuOpen ? 'block' : 'hidden'
         }`}
       >
-        <Navlinks open={isMenuOpen} />
+        <Navlinks open={isMenuOpen} onClose={closeMenu} />
       </div>
     </div>
   );

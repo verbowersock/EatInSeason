@@ -1,14 +1,14 @@
 import Hero from '@/components/hero';
+import { auth } from '@clerk/nextjs';
 import React from 'react';
-import { options } from './api/auth/[...nextauth]/options';
-import { getServerSession } from 'next-auth/next';
 
-const HomePage = async () => {
-  const session = await getServerSession(options);
+import Main from '@/components/main';
+
+const HomePage = () => {
   return (
     <>
       <Hero />
-      {session ? <p>Logged in</p> : <p>Not logged in</p>}
+      <Main />
     </>
   );
 };
