@@ -30,24 +30,23 @@ const Navlinks = ({ open, onClose }: NavlinksProps) => {
         }`}
       >
         <SignedOut>
-          <SignUpButton mode='modal'>
-            <button
-              onClick={closeMenu}
+          <>
+            <Link
+              href='sign-up'
               className='nav_button rounded-md bg-leafyGreen px-4 text-black duration-300 ease-in-out hover:scale-110 hover:transform'
+              onClick={closeMenu}
             >
               Sign Up
-            </button>
-          </SignUpButton>
-          <SignInButton mode='modal'>
-            <button onClick={closeMenu} className='nav_button'>
-              Login
-            </button>
-          </SignInButton>
+            </Link>
+            <Link href='sign-in' onClick={closeMenu} className='nav_button'>
+              Sign In
+            </Link>
+          </>
         </SignedOut>
         <SignedIn>
           {open && (
             <div className='mb-6'>
-              <UserButton />
+              <UserButton afterSignOutUrl='/' />
               <SignOutButton>
                 <div className='nav_button !mx-2 mt-6 flex'>
                   Sign Out{' '}
@@ -92,7 +91,7 @@ const Navlinks = ({ open, onClose }: NavlinksProps) => {
           <div className='hidden md:flex'>
             <SignedIn>
               <div className='px-10'>
-                <UserButton />
+                <UserButton afterSignOutUrl='/' />
               </div>
             </SignedIn>
           </div>

@@ -16,7 +16,7 @@ const Navigation = () => {
   };
 
   return (
-    <div className='absolute right-0 top-0 z-50 flex w-full justify-between p-5 '>
+    <div className='absolute right-0 top-0 z-10 flex w-full justify-between p-5'>
       <Navlinks onClose={closeMenu} />
 
       {/*Hamburger Button*/}
