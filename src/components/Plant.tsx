@@ -9,10 +9,9 @@ import { toast } from 'react-toastify';
 
 export interface PlantProps extends PlantType {
   selected?: boolean;
-  onSelect: (label: string) => void;
 }
 
-const Plant = ({ file, label, selected, onSelect, id }: PlantProps) => {
+const Plant = ({ file, label, selected, id }: PlantProps) => {
   const { userId, getToken } = useAuth();
   const { toggleUserPlant } = usePlantStore((store) => store);
 
@@ -20,7 +19,7 @@ const Plant = ({ file, label, selected, onSelect, id }: PlantProps) => {
     try {
       const token = await getToken({ template: 'supabase' });
       if (!selected) {
-        const result = await addUserPlants({ userId, token, plantId: 77 });
+        const result = await addUserPlants({ userId, token, plantId: id });
         console.log('result', result);
       } else {
         await removeUserPlant({ userId, token, plantId: id });
@@ -37,9 +36,9 @@ const Plant = ({ file, label, selected, onSelect, id }: PlantProps) => {
         selected
           ? 'cursor-pointer border-4 border-leafyGreen'
           : 'cursor-pointer border-4 border-gray-200 shadow-md shadow-black transition ease-in-out hover:shadow-sm hover:delay-100 '
-      } box-content flex h-16 w-16 flex-col place-self-center overflow-hidden rounded-full p-4 sm:h-24 sm:w-24`}
+      } circle box-content flex flex-col place-self-center overflow-hidden rounded-full`}
     >
-      <div className='relative m-auto h-14 w-14 overflow-hidden sm:h-20 md:w-20'>
+      <div className='relative mx-auto mt-2 h-12 w-12 overflow-hidden sm:mt-4 sm:h-20 md:w-20 '>
         <Image
           src={`/assets/images/${file}`}
           alt={label}
@@ -47,7 +46,7 @@ const Plant = ({ file, label, selected, onSelect, id }: PlantProps) => {
           objectFit='contain'
         />
       </div>
-      <div className='m-auto text-xs'>{label}</div>
+      <div className='m-auto mt-0 text-[10px] sm:mt-2 sm:text-xs'>{label}</div>
     </div>
   );
 };

@@ -10,9 +10,7 @@ import {
 } from '@/db_client/supabaseRequests';
 import { useAuth } from '@clerk/nextjs';
 import { usePlantStore } from '../stores/plantStore';
-import PageLoader from 'next/dist/client/page-loader';
-import LoadingAnimation from './Loader';
-import { ToastContainer, toast } from 'react-toastify';
+import PlantPlaceholder from './PlantPlaceholder';
 
 export interface PlantType {
   id: number;
@@ -39,8 +37,7 @@ const PlantList = () => {
 */
   const { userId, getToken } = useAuth();
   const [loading, setLoading] = useState(false);
-  const { userPlants, setUserPlants, addUserPlant, removeUserPlant } =
-    usePlantStore((store) => store);
+  const { userPlants, setUserPlants } = usePlantStore((store) => store);
   console.log('userPlantsinStore', userPlants);
 
   useEffect(() => {
@@ -81,7 +78,19 @@ const PlantList = () => {
     <section className='container mx-auto flex flex-col justify-center px-1 align-middle sm:px-4'>
       <h2 className='mx-auto py-14 text-6xl'>Your plants</h2>
       {loading ? (
-        <LoadingAnimation />
+        <div className='grid grid-cols-3 gap-1 sm:grid-cols-4 sm:gap-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7'>
+          {Array.from({ length: 12 }, (_, index) => (
+            <div className='circle box-border' key={index}>
+              <PlantPlaceholder
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+              />
+            </div>
+          ))}
+        </div>
       ) : (
         <div className='grid grid-cols-3 gap-1 sm:grid-cols-4 sm:gap-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7'>
           {userPlants.map((plant) => (
@@ -91,7 +100,6 @@ const PlantList = () => {
               file={plant.file}
               selected={plant.selected}
               label={plant.label}
-              onSelect={() => setSelected(plant.id)}
             />
           ))}
         </div>
