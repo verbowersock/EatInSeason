@@ -4,6 +4,7 @@ export const main = Poppins({
   weight: ['400', '600'],
   subsets: ['latin'],
   variable: '--font-poppins',
+  display: 'swap',
 });
 export const heading = Amatic_SC({
   weight: ['400', '700'],

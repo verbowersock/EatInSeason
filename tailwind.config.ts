@@ -25,6 +25,10 @@ const config: Config = {
       colors: {
         leafyGreen: '#86b80b',
       },
+      fontFamily: {
+        head: ['var(--font-amatic)'],
+        body: ['var(--font-poppins)'],
+      },
     },
   },
   plugins: [],
