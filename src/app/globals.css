@@ -16,6 +16,11 @@
   }
 }
 
+@font-face {
+  font-family: 'Amatic';
+  src: url('/font/AmaticSC-Regular.ttf');
+}
+
 @layer components {
   .circle {
     @apply box-content flex h-20 w-20 items-center justify-center sm:h-32 sm:w-32;
@@ -47,7 +52,7 @@ body {
 }
 
 .nav_button {
-  @apply mx-10 ml-0 w-[fit-content] py-1 text-lg text-white md:ml-0 md:py-1 md:text-xl;
+  @apply mx-10 ml-0 w-[fit-content] py-1 text-lg text-white md:ml-0 md:mr-0 md:mt-0 md:py-1 md:text-lg lg:text-xl;
 }
 
 .cl-userButtonTrigger {
@@ -61,6 +66,9 @@ body {
   transition: all 0.25s;
   position: relative;
   margin-top: 0.5rem;
+  position: absolute;
+  right: 10px;
+  top: 20px;
 }
 
 .hamburger-top,

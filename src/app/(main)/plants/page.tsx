@@ -1,8 +1,12 @@
-import PlantList from '@/components/PlantList';
 import React from 'react';
+import dynamic from 'next/dynamic';
 
-const page = () => {
+const PlantList = dynamic(() => import('@/components/PlantList'), {
+  ssr: false,
+});
+
+const PlantsListPage = () => {
   return <PlantList />;
 };
 
-export default page;
+export default PlantsListPage;

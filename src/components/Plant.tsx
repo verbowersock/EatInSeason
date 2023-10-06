@@ -38,7 +38,7 @@ const Plant = ({ file, label, selected, id }: PlantProps) => {
           : 'cursor-pointer border-4 border-gray-200 shadow-md shadow-black transition ease-in-out hover:shadow-sm hover:delay-100 '
       } circle box-content flex flex-col place-self-center overflow-hidden rounded-full`}
     >
-      <div className='relative mx-auto mt-2 h-12 w-12 overflow-hidden sm:mt-4 sm:h-20 md:w-20 '>
+      <div className='relative z-0 mx-auto mt-2 h-12 w-12 overflow-hidden sm:mt-4 sm:h-20 md:w-20'>
         <Image
           src={`/assets/images/${file}`}
           alt={label}

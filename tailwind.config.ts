@@ -8,7 +8,7 @@ const config: Config = {
   ],
   theme: {
     screens: {
-      xs: '320px',
+      xs: '415px',
       sm: '640px',
       // => @media (min-width: 640px) { ... }
 
@@ -26,7 +26,7 @@ const config: Config = {
         leafyGreen: '#86b80b',
       },
       fontFamily: {
-        head: ['var(--font-amatic)'],
+        head: ['Amatic', 'sans-serif'],
         body: ['var(--font-poppins)'],
       },
     },
