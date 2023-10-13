@@ -1,7 +1,8 @@
+import UserRecipes from '@/components/UserRecipes';
 import React from 'react';
 
-const page = () => {
-  return <div>page</div>;
+const UserRecipesPage = () => {
+  return <UserRecipes />;
 };
 
-export default page;
+export default UserRecipesPage;

@@ -22,6 +22,13 @@ const config: Config = {
       // => @media (min-width: 1280px) { ... }
     },
     extend: {
+      height: {
+        '128': '32rem',
+      },
+      width: {
+        '128': '32rem',
+      },
+
       colors: {
         leafyGreen: '#86b80b',
       },
@@ -31,7 +38,7 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/line-clamp')],
 };
 
 export default config;

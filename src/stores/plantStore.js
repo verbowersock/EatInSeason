@@ -7,7 +7,6 @@ export const usePlantStore = create((set) => ({
     set((state) => ({
       userPlants: state.userPlants.map((plant) => {
         if (plant.id === id) {
-          console.log('plant', plant);
           return {
             ...plant,
             selected: !plant.selected,

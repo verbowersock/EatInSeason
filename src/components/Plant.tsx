@@ -20,7 +20,6 @@ const Plant = ({ file, label, selected, id }: PlantProps) => {
       const token = await getToken({ template: 'supabase' });
       if (!selected) {
         const result = await addUserPlants({ userId, token, plantId: id });
-        console.log('result', result);
       } else {
         await removeUserPlant({ userId, token, plantId: id });
       }

@@ -1,15 +1,10 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Plant, { PlantProps } from './Plant';
-import {
-  GetPlantsProps,
-  getAllPlants,
-  getUserPlants,
-} from '@/db_client/supabaseRequests';
 import { useAuth } from '@clerk/nextjs';
-import { usePlantStore } from '../stores/plantStore';
 import PlantPlaceholder from './PlantPlaceholder';
+import usePlantList from '@/app/hooks/usePlantList';
 
 export interface PlantType {
   id: number;
@@ -34,45 +29,9 @@ const PlantList = () => {
     { file: 'greenbeans.png', label: 'Green Beans', selected: false },
   ];
 */
-  const { userId, getToken } = useAuth();
-  const [loading, setLoading] = useState(false);
-  const { userPlants, setUserPlants } = usePlantStore((store) => store);
-  console.log('userPlantsinStore', userPlants);
+  const { userId } = useAuth();
+  const { userPlants, loading } = usePlantList({ userId: userId! });
 
-  useEffect(() => {
-    const fetchAllPlants = async () => {
-      setLoading(true);
-      const token = await getToken({ template: 'supabase' });
-      const allPlants = await getAllPlants(token as string);
-      const userPlants = await getUserPlants({
-        userId,
-        token,
-      } as GetPlantsProps);
-      const updatedPlantList = allPlants?.map((plant) => {
-        return {
-          id: plant.id,
-          file: `${plant.plant_name.toLowerCase().replace(/ /g, '')}.png`,
-          label: plant.plant_name,
-        };
-      });
-      //find plants in allplants that also exist in userplants and mark them as selected
-
-      const selectedPlantList = updatedPlantList?.map((plant) => {
-        if (userPlants?.find((userPlant) => userPlant.plant === plant.id)) {
-          return { ...plant, selected: true };
-        }
-        return { ...plant, selected: false };
-      });
-      console.log('userPlants', userPlants);
-      console.log('selectedPlantList', selectedPlantList);
-      setUserPlants(selectedPlantList as PlantProps[]); // provide an initial value of an empty array
-      setLoading(false);
-    };
-
-    fetchAllPlants();
-  }, []);
-
-  //const [plants, setPlants] = useState<PlantProps[]>([]);
   return (
     <section className='container mx-auto flex w-full flex-col justify-center px-1 align-middle sm:px-4'>
       <h2 className='mx-auto py-14 text-6xl'>Your plants</h2>
@@ -97,7 +56,7 @@ const PlantList = () => {
         </div>
       ) : (
         <div className='grid grid-cols-3 gap-1 sm:grid-cols-4 sm:gap-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7'>
-          {userPlants.map((plant) => (
+          {userPlants.map((plant: PlantProps) => (
             <Plant
               key={plant.id}
               id={plant.id}
