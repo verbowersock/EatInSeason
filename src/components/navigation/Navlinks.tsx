@@ -3,9 +3,11 @@ import Link from 'next/link';
 import React from 'react';
 import { SignedIn, SignedOut } from '@clerk/nextjs';
 import { usePathname } from 'next/navigation';
+import dynamic from 'next/dynamic';
 
-import AuthLinks from './Authlinks';
-import path from 'path';
+const AuthLinks = dynamic(() => import('./Authlinks'), {
+  ssr: false,
+});
 
 export type ModalProps = {
   open: boolean;

@@ -5,7 +5,7 @@ import React from 'react';
 
 const Recipe = ({ recipe }) => {
   const { userId, getToken } = useAuth();
-  const { label, image, ingredientLines, url, calories, mealType } =
+  const { label, image, ingredientLines, url, calories, mealType, images } =
     recipe.recipe;
   const servings = recipe.recipe.yield;
   const cuisineType =
@@ -32,6 +32,9 @@ const Recipe = ({ recipe }) => {
             sizes='10000px'
             fill
             style={{ objectFit: 'cover' }}
+            loading='lazy'
+            placeholder='blur'
+            blurDataURL={images.THUMBNAIL.url}
           />
         </div>
         <div className='flex flex-1 flex-col gap-4'>

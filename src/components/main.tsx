@@ -2,11 +2,15 @@
 
 import React from 'react';
 import { SignedIn, SignedOut } from '@clerk/nextjs';
+import dynamic from 'next/dynamic';
 
-import { usePlantStore } from '@/stores/plantStore';
+const RecommendedRecipes = dynamic(() => import('./RecommendedRecipes'), {
+  ssr: false,
+});
+const Intro = dynamic(() => import('./intro'), {
+  ssr: false,
+});
 
-import Intro from './intro';
-import RecommendedRecipes from './RecommendedRecipes';
 //import appid and appkey from .env
 
 const Main = () => {

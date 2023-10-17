@@ -43,7 +43,7 @@ const RecipeList = ({ ingredients, onSelectIngredient }) => {
     selectedIngredients.length > 0
       ? setUrl(
           `https://api.edamam.com/api/recipes/v2?type=public&q=${selectedIngredients.join(
-            ' '
+            '%20'
           )}&app_id=${app_id}&app_key=${app_key}`
         )
       : null;
@@ -51,6 +51,7 @@ const RecipeList = ({ ingredients, onSelectIngredient }) => {
 
   useEffect(() => {
     setNextUrl(data?._links?.next?.href);
+    console.log('nexturl', nextUrl);
   }, [data]);
 
   const handleLoadMore = () => {

@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import Plant, { PlantProps } from './Plant';
 import { useAuth } from '@clerk/nextjs';
 import PlantPlaceholder from './PlantPlaceholder';
@@ -11,27 +11,14 @@ export interface PlantType {
   file: string;
   label: string;
 }
-
 const PlantList = () => {
-  /* const defaultPlants = [
-    { file: 'beet.png', label: 'Beets', selected: false },
-    { file: 'broccoli.png', label: 'Broccoli', selected: false },
-    { file: 'cabbage.png', label: 'Cabbage', selected: false },
-    { file: 'carrot.png', label: 'Carrot', selected: false },
-    { file: 'cucumber.png', label: 'Cucumber', selected: false },
-    { file: 'eggplant.png', label: 'Eggplant', selected: false },
-    { file: 'peas.png', label: 'Peas', selected: false },
-    { file: 'bellpepper.png', label: 'Pepper', selected: false },
-    { file: 'pumpkin.png', label: 'Pumpkin', selected: false },
-    { file: 'raddish.png', label: 'Raddish', selected: false },
-    { file: 'tomato.png', label: 'Tomato', selected: false },
-    { file: 'zucchini.png', label: 'Zucchini', selected: false },
-    { file: 'greenbeans.png', label: 'Green Beans', selected: false },
-  ];
-*/
   const { userId } = useAuth();
-  const { userPlants, loading } = usePlantList({ userId: userId! });
 
+  const { userPlants, loading, error } = usePlantList({ userId: userId! });
+
+  if (error) {
+    throw new Error(error.message);
+  }
   return (
     <section className='container mx-auto flex w-full flex-col justify-center px-1 align-middle sm:px-4'>
       <h2 className='mx-auto py-14 text-6xl'>Your plants</h2>

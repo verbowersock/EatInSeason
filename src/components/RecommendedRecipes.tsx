@@ -8,9 +8,12 @@ import RecipeList from './RecipeList';
 
 const RecommendedRecipes = () => {
   const { userId } = useAuth();
-  const { userPlants, loading } = usePlantList({ userId: userId! });
-
+  const { userPlants, loading, error } = usePlantList({ userId: userId! });
   const [ingredients, setIngredients] = React.useState([]);
+
+  if (error) {
+    throw new Error(error.message);
+  }
 
   useEffect(() => {
     if (!loading) {
@@ -35,7 +38,7 @@ const RecommendedRecipes = () => {
     <section>
       {userPlants.length === 0 ? (
         loading ? (
-          <div>Loading...</div>
+          <div>Loading your recipes</div>
         ) : (
           <div className='text-md my-10 w-full text-center sm:text-xl'>
             You don&apos;t have any plants selected. Please select some{' '}

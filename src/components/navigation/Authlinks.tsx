@@ -1,7 +1,10 @@
+'use client';
+
 import { SignOutButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
+import dynamic from 'next/dynamic';
 import { ModalProps } from './Navlinks';
 
 const AuthLinks = ({ open, onClose }: ModalProps) => {

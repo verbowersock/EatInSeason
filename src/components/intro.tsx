@@ -24,6 +24,7 @@ const Intro = () => {
             alt={'veggies'}
             fill
             objectFit='cover'
+            sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
           />
         </div>
         <div className='flex flex-col gap-4 md:justify-between '>
