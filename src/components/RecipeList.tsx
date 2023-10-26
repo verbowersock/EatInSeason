@@ -2,7 +2,15 @@ import React, { useEffect } from 'react';
 import useSWR from 'swr';
 import Recipe from './Recipe';
 import Ingredient from './Ingredient';
-import { PlantProps } from './Plant';
+
+import {
+  IngredientType,
+  PlantProps,
+  RecipeListProps,
+  RecipeType,
+} from '@/types';
+import useRecipeList from '@/app/hooks/useRecipeList';
+import { useAuth } from '@clerk/nextjs';
 
 const app_id = process.env.NEXT_PUBLIC_API_APP_ID;
 const app_key = process.env.NEXT_PUBLIC_API_APP_KEY;
@@ -13,11 +21,8 @@ const fetcher = async (url: string) => {
   return res.json();
 };
 
-const RecipeList = ({ ingredients, onSelectIngredient }) => {
-  //extract an array of labels from plants
-  //useSWR with that array of labels
-  //display recipes
-  //if no recipes, display message
+const RecipeList = ({ ingredients, onSelectIngredient }: RecipeListProps) => {
+  const { userId } = useAuth();
 
   const selectedIngredients = ingredients
     .filter((ingredient) => ingredient.selected)
@@ -29,15 +34,23 @@ const RecipeList = ({ ingredients, onSelectIngredient }) => {
 
   const [prevUrl, setPrevUrl] = React.useState<string | null>(null);
   const [nextUrl, setNextUrl] = React.useState<string | null>(null);
+  const {
+    data: userRecipes,
+    loading,
+    error,
+  } = useRecipeList({ userId: userId! });
 
-  const { data, error } = useSWR(url, fetcher);
+  const { data: swrData, error: swrError } = useSWR(url, fetcher);
 
-  const renderCount = React.useRef(0);
-
-  React.useEffect(() => {
-    renderCount.current += 1;
-    console.log('Render count:', renderCount.current);
-  });
+  useEffect(() => {
+    if (swrData && userRecipes) {
+      //compare 2 arrays and find if any of the uri from userrecipes are present in swrdata
+      const matchingRecipes = userRecipes.filter((recipe) =>
+        swrData.hits.some((hit) => hit.recipe.uri === recipe.uri)
+      );
+      console.log('matchingRecipes', matchingRecipes);
+    }
+  }, [swrData]);
 
   useEffect(() => {
     selectedIngredients.length > 0
@@ -50,9 +63,8 @@ const RecipeList = ({ ingredients, onSelectIngredient }) => {
   }, [selectedIngredients]);
 
   useEffect(() => {
-    setNextUrl(data?._links?.next?.href);
-    console.log('nexturl', nextUrl);
-  }, [data]);
+    setNextUrl(swrData?._links?.next?.href);
+  }, [swrData]);
 
   const handleLoadMore = () => {
     setPrevUrl(url);
@@ -62,17 +74,22 @@ const RecipeList = ({ ingredients, onSelectIngredient }) => {
     setNextUrl(url);
     setUrl(prevUrl);
   };
+
+  // if (error || swrError) {
+  //   throw new Error('unable to load recipes');
+  // }
+
   return (
     <div className='text-md my-10 w-full text-center sm:text-xl'>
       <div className='pb-10 text-black'>
         Here are the recipes containing all the following ingredients:{' '}
         <div className='flex flex-row flex-wrap justify-center gap-4 py-8 text-leafyGreen'>
-          {ingredients.map((plant: PlantProps) => (
+          {ingredients.map((ingredient: IngredientType) => (
             <Ingredient
-              key={plant.label}
-              label={plant.label}
-              selected={plant.selected ?? false}
-              onChange={() => onSelectIngredient(plant.label)}
+              key={ingredient.label}
+              label={ingredient.label}
+              selected={ingredient.selected ?? false}
+              onChange={() => onSelectIngredient(ingredient.label)}
             />
           ))}
         </div>
@@ -80,7 +97,7 @@ const RecipeList = ({ ingredients, onSelectIngredient }) => {
         preference. Please select at least one ingredient to see recipes.
       </div>
       <div className='p-6'>
-        {data?.hits?.length === 0 && (
+        {swrData?.hits?.length === 0 && (
           <div className='text-md my-10 w-full text-center sm:text-xl'>
             Sorry, we couldn&apos;t find any recipes with those ingredients.
             <br />
@@ -89,10 +106,10 @@ const RecipeList = ({ ingredients, onSelectIngredient }) => {
         )}
         <div className='flex flex-col gap-10'>
           <div className='flex flex-row justify-center gap-4'>
-            {data?.count} recipes available
+            {swrData?.count} recipes available
           </div>
-          {data?.hits?.map((recipe, index) => (
-            <Recipe key={index} recipe={recipe} />
+          {swrData?.hits?.map((item: RecipeType) => (
+            <Recipe key={item.recipe.uri} recipe={item} />
           ))}
           <div className='flex flex-row justify-center gap-10'>
             {prevUrl && (

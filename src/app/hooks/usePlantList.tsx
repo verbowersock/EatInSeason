@@ -1,24 +1,10 @@
 import { useEffect, useState } from 'react';
-import {
-  GetPlantsProps,
-  getAllPlants,
-  getUserPlants,
-} from '@/db_client/supabaseRequests';
+import { getAllPlants, getUserPlants } from '@/db_client/supabaseRequests';
 import { useAuth } from '@clerk/nextjs';
 import { usePlantStore } from '@/stores/plantStore';
+import { PlantProps } from '@/types';
 
-type PlantProps = {
-  id: number;
-  file: string;
-  label: string;
-  selected?: boolean;
-};
-
-type UsePlantListProps = {
-  userId: string;
-};
-
-const usePlantList = ({ userId }: UsePlantListProps) => {
+const usePlantList = ({ userId }: { userId: string }) => {
   const { getToken } = useAuth();
   const [loading, setLoading] = useState(true);
   const { userPlants, setUserPlants } = usePlantStore((store) => store);

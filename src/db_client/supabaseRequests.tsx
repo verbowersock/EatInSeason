@@ -1,12 +1,7 @@
+import { PlantRequestProps, RecipeRequestProps } from '@/types';
 import { supabaseClient } from './supabaseClient';
 
 import { SupabaseClient } from '@supabase/supabase-js';
-
-export interface GetPlantsProps {
-  userId: string;
-  token: string;
-  plantId?: number;
-}
 
 export const getAllPlants = async (token: string) => {
   const supabase: SupabaseClient = await supabaseClient(token);
@@ -14,7 +9,7 @@ export const getAllPlants = async (token: string) => {
   return data;
 };
 
-export const getUserPlants = async ({ userId, token }: GetPlantsProps) => {
+export const getUserPlants = async ({ userId, token }: PlantRequestProps) => {
   const supabase: SupabaseClient = await supabaseClient(token);
   const { data } = await supabase
     .from('User_Plants')
@@ -27,7 +22,7 @@ export const deleteUserPlants = async ({
   userId,
   token,
   plantId,
-}: GetPlantsProps) => {
+}: PlantRequestProps) => {
   const supabase: SupabaseClient = await supabaseClient(token);
   const { data } = await supabase
     .from('User_Plants')
@@ -37,7 +32,7 @@ export const deleteUserPlants = async ({
   return data;
 };
 
-export const getUserRecipes = async ({ userId, token }) => {
+export const getUserRecipes = async ({ userId, token }: RecipeRequestProps) => {
   const supabase: SupabaseClient = await supabaseClient(token);
   const { data } = await supabase
     .from('User_Recipes')
@@ -46,7 +41,11 @@ export const getUserRecipes = async ({ userId, token }) => {
   return data;
 };
 
-export const addUserPlants = async ({ userId, token, plantId }) => {
+export const addUserPlants = async ({
+  userId,
+  token,
+  plantId,
+}: PlantRequestProps) => {
   const supabase = await supabaseClient(token);
   const { data, error } = await supabase
     .from('User_Plants')
@@ -61,7 +60,11 @@ export const addUserPlants = async ({ userId, token, plantId }) => {
   return data;
 };
 
-export const removeUserPlant = async ({ userId, token, plantId }) => {
+export const removeUserPlant = async ({
+  userId,
+  token,
+  plantId,
+}: PlantRequestProps) => {
   const supabase = await supabaseClient(token);
   const { data, error } = await supabase
     .from('User_Plants')
@@ -77,7 +80,11 @@ export const removeUserPlant = async ({ userId, token, plantId }) => {
   return data;
 };
 
-export const addUserRecipe = async ({ userId, token, recipe }) => {
+export const addUserRecipe = async ({
+  userId,
+  token,
+  recipe,
+}: RecipeRequestProps) => {
   const supabase = await supabaseClient(token);
   const { data, error } = await supabase
     .from('User_Recipes')
@@ -92,13 +99,17 @@ export const addUserRecipe = async ({ userId, token, recipe }) => {
   return data;
 };
 
-export const removeUserRecipe = async ({ userId, token, recipeId }) => {
+export const removeUserRecipe = async ({
+  userId,
+  token,
+  recipe,
+}: RecipeRequestProps) => {
   const supabase = await supabaseClient(token);
   const { data, error } = await supabase
     .from('User_Recipes')
     .delete()
     .eq('userId', userId)
-    .eq('id', recipeId)
+    .eq('id', recipe?.recipe.uri)
     .select();
   if (error) {
     console.log('!!!ERROR', error);

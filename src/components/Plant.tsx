@@ -1,15 +1,11 @@
 'use client';
 import Image from 'next/image';
 import React from 'react';
-import { PlantType } from './PlantList';
 import { addUserPlants, removeUserPlant } from '@/db_client/supabaseRequests';
 import { useAuth } from '@clerk/nextjs';
 import { usePlantStore } from '@/stores/plantStore';
 import { toast } from 'react-toastify';
-
-export interface PlantProps extends PlantType {
-  selected?: boolean;
-}
+import { PlantProps, PlantRequestProps } from '@/types';
 
 const Plant = ({ file, label, selected, id }: PlantProps) => {
   const { userId, getToken } = useAuth();
@@ -19,9 +15,17 @@ const Plant = ({ file, label, selected, id }: PlantProps) => {
     try {
       const token = await getToken({ template: 'supabase' });
       if (!selected) {
-        const result = await addUserPlants({ userId, token, plantId: id });
+        const result = await addUserPlants({
+          userId,
+          token,
+          plantId: id,
+        } as PlantRequestProps);
       } else {
-        await removeUserPlant({ userId, token, plantId: id });
+        await removeUserPlant({
+          userId,
+          token,
+          plantId: id,
+        } as PlantRequestProps);
       }
       toggleUserPlant(id);
     } catch (error) {

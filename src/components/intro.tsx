@@ -8,14 +8,14 @@ const Intro = () => {
         Welcome to Eat In Season:
         <br />
         <span className='text-xl sm:text-2xl md:text-3xl lg:text-4xl'>
-          Your Garden's Culinary Sidekick!
+          Your Garden&apos;s Culinary Sidekick!
         </span>
       </div>
       <div className='text-md  py-6 md:text-lg lg:pt-10 lg:text-xl'>
         Got a garden overflowing with cucumbers, tomatoes, and more? Do the
         neighbors lock their doors and shut their curtains when you approach
-        with armfuls of zucchini? Ready to turn your garden's treasures into
-        mouthwatering meals? Look no further!
+        with armfuls of zucchini? Ready to turn your garden&apos;s treasures
+        into mouthwatering meals? Look no further!
       </div>
       <div className='flex w-full flex-col pt-2 md:flex-row md:pt-6 lg:pt-10'>
         <div className='relative mr-10 hidden h-[600px] w-2/5 shrink-0 overflow-hidden rounded-xl  shadow-2xl md:block'>
@@ -48,9 +48,9 @@ const Intro = () => {
             </div>
             <div>
               <span className='font-bold'>Personalized Recipes: </span>
-              Our&nbsp;smart algorithm curates recipes that match your garden's
-              bounty. No more waste, just culinary creativity! Save your
-              favorites to find them later.
+              Our&nbsp;smart algorithm curates recipes that match your
+              garden&apos;s bounty. No more waste, just culinary creativity!
+              Save your favorites to find them later.
             </div>
           </div>
           <div className='flex flex-col items-center gap-3 rounded-lg border-2 border-gray-200 p-6 shadow-lg xs:flex-row'>
@@ -74,7 +74,7 @@ const Intro = () => {
             <div>
               <span className='font-bold'>Mobile Convenience: </span>
               <br /> Access Eat In Season on your phone or tablet, whether
-              you're in the garden, the store, or the kitchen.
+              you&apos;re in the garden, the store, or the kitchen.
             </div>
           </div>
         </div>

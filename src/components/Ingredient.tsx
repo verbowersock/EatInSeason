@@ -1,12 +1,7 @@
+import { IngredientType } from '@/types';
 import React from 'react';
 
-interface IngredientProps {
-  label: string;
-  selected: boolean;
-  onChange: (selected: boolean) => void;
-}
-
-const Ingredient = ({ label, selected, onChange }: IngredientProps) => {
+const Ingredient = ({ label, selected, onChange }: IngredientType) => {
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     onChange(event.target.checked);
   };

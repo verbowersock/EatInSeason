@@ -1,21 +1,27 @@
 import { addUserRecipe } from '@/db_client/supabaseRequests';
+import { RecipeRequestProps, RecipeType } from '@/types';
 import { useAuth } from '@clerk/nextjs';
 import Image from 'next/image';
 import React from 'react';
 
-const Recipe = ({ recipe }) => {
+const Recipe = ({ recipe }: { recipe: RecipeType }) => {
+  console.log(recipe);
   const { userId, getToken } = useAuth();
-  const { label, image, ingredientLines, url, calories, mealType, images } =
+  const { label, image, ingredientLines, url, calories, images } =
     recipe.recipe;
   const servings = recipe.recipe.yield;
   const cuisineType =
     recipe.recipe.cuisineType[0].charAt(0).toUpperCase() +
     recipe.recipe.cuisineType[0].slice(1);
 
-  const addToFavorites = async () => {
+  const addToFavorites = async (recipe: RecipeType) => {
     try {
       const token = await getToken({ template: 'supabase' });
-      const result = await addUserRecipe({ userId, token, recipe });
+      const result = await addUserRecipe({
+        userId,
+        token,
+        recipe,
+      } as RecipeRequestProps);
       console.log(result);
     } catch (error) {
       alert('Something went wrong');
@@ -39,7 +45,7 @@ const Recipe = ({ recipe }) => {
         </div>
         <div className='flex flex-1 flex-col gap-4'>
           <div className=' w-full self-center  bg-lime-900/90'>
-            <h1 className='p-2 text-lg text-white sm:px-4 sm:py-2 sm:pt-6 sm:text-2xl'>
+            <h1 className='p-2 text-center text-lg text-white sm:px-4 sm:py-2 sm:pt-6 sm:text-2xl'>
               {label}
             </h1>
             <hr className='border-1 border-white' />
@@ -67,7 +73,7 @@ const Recipe = ({ recipe }) => {
               alt='heart icon'
               width={35}
               height={35}
-              onClick={() => addToFavorites(recipe)}
+              onClick={() => addToFavorites(recipe as RecipeType)}
               className='cursor-pointer justify-self-start'
             />
             <a

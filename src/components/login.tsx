@@ -5,9 +5,9 @@ import tailwindConfig from '../../tailwind.config';
 
 const fullConfig = resolveConfig(tailwindConfig);
 
-interface LoginProps {
+type LoginProps = {
   child: ReactNode;
-}
+};
 
 const Login = ({ child }: LoginProps) => {
   const appearance = {

@@ -2,15 +2,13 @@ import { useAuth } from '@clerk/nextjs';
 import React, { useEffect } from 'react';
 import usePlantList from '@/app/hooks/usePlantList';
 import Link from 'next/link';
-import { PlantProps } from './Plant';
-import RecipeListWrapper from './RecipeList';
 import RecipeList from './RecipeList';
+import { IngredientType, PlantProps } from '@/types';
 
 const RecommendedRecipes = () => {
   const { userId } = useAuth();
   const { userPlants, loading, error } = usePlantList({ userId: userId! });
-  const [ingredients, setIngredients] = React.useState([]);
-
+  const [ingredients, setIngredients] = React.useState<IngredientType[]>([]);
   if (error) {
     throw new Error(error.message);
   }
@@ -25,7 +23,7 @@ const RecommendedRecipes = () => {
   }, [userPlants, loading]);
 
   const toggleIngredient = (label: string) => {
-    const newIngredients = ingredients.map((ingredient) => {
+    const newIngredients = ingredients.map((ingredient: IngredientType) => {
       if (ingredient.label === label) {
         return { ...ingredient, selected: !ingredient.selected };
       }

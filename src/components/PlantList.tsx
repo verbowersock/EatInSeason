@@ -1,16 +1,12 @@
 'use client';
 
 import React, { useEffect } from 'react';
-import Plant, { PlantProps } from './Plant';
+import Plant from './Plant';
 import { useAuth } from '@clerk/nextjs';
 import PlantPlaceholder from './PlantPlaceholder';
 import usePlantList from '@/app/hooks/usePlantList';
+import { PlantProps } from '@/types';
 
-export interface PlantType {
-  id: number;
-  file: string;
-  label: string;
-}
 const PlantList = () => {
   const { userId } = useAuth();
 
