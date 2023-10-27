@@ -1,5 +1,4 @@
 import { addUserRecipe } from '@/db_client/supabaseRequests';
-import { RecipeRequestProps, RecipeType } from '@/types';
 import { useAuth } from '@clerk/nextjs';
 import Image from 'next/image';
 import React from 'react';
@@ -24,7 +23,7 @@ const Recipe = ({ recipe }: { recipe: RecipeType }) => {
       } as RecipeRequestProps);
       console.log(result);
     } catch (error) {
-      alert('Something went wrong');
+      throw new Error("Couldn't add recipe to favorites");
     }
   };
 

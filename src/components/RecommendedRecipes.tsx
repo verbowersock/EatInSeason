@@ -3,7 +3,6 @@ import React, { useEffect } from 'react';
 import usePlantList from '@/app/hooks/usePlantList';
 import Link from 'next/link';
 import RecipeList from './RecipeList';
-import { IngredientType, PlantProps } from '@/types';
 
 const RecommendedRecipes = () => {
   const { userId } = useAuth();
@@ -34,7 +33,7 @@ const RecommendedRecipes = () => {
 
   return (
     <section>
-      {userPlants.length === 0 ? (
+      {userPlants && userPlants.length === 0 ? (
         loading ? (
           <div>Loading your recipes</div>
         ) : (

@@ -3,14 +3,9 @@ import useSWR from 'swr';
 import Recipe from './Recipe';
 import Ingredient from './Ingredient';
 
-import {
-  IngredientType,
-  PlantProps,
-  RecipeListProps,
-  RecipeType,
-} from '@/types';
 import useRecipeList from '@/app/hooks/useRecipeList';
 import { useAuth } from '@clerk/nextjs';
+import RecipePlaceholder from './RecipePlaceholder';
 
 const app_id = process.env.NEXT_PUBLIC_API_APP_ID;
 const app_key = process.env.NEXT_PUBLIC_API_APP_KEY;
@@ -40,13 +35,13 @@ const RecipeList = ({ ingredients, onSelectIngredient }: RecipeListProps) => {
     error,
   } = useRecipeList({ userId: userId! });
 
-  const { data: swrData, error: swrError } = useSWR(url, fetcher);
+  const { data: swrData, error: swrError, isLoading } = useSWR(url, fetcher);
 
   useEffect(() => {
     if (swrData && userRecipes) {
       //compare 2 arrays and find if any of the uri from userrecipes are present in swrdata
       const matchingRecipes = userRecipes.filter((recipe) =>
-        swrData.hits.some((hit) => hit.recipe.uri === recipe.uri)
+        swrData.hits.some((hit: RecipeType) => hit.recipe.uri === recipe.uri)
       );
       console.log('matchingRecipes', matchingRecipes);
     }
@@ -81,6 +76,7 @@ const RecipeList = ({ ingredients, onSelectIngredient }: RecipeListProps) => {
 
   return (
     <div className='text-md my-10 w-full text-center sm:text-xl'>
+      <RecipePlaceholder />
       <div className='pb-10 text-black'>
         Here are the recipes containing all the following ingredients:{' '}
         <div className='flex flex-row flex-wrap justify-center gap-4 py-8 text-leafyGreen'>
@@ -105,9 +101,13 @@ const RecipeList = ({ ingredients, onSelectIngredient }: RecipeListProps) => {
           </div>
         )}
         <div className='flex flex-col gap-10'>
-          <div className='flex flex-row justify-center gap-4'>
-            {swrData?.count} recipes available
-          </div>
+          {isLoading ? (
+            <div>Loading your recipes</div>
+          ) : (
+            <div className='flex flex-row justify-center gap-4'>
+              {swrData?.count} recipes available
+            </div>
+          )}
           {swrData?.hits?.map((item: RecipeType) => (
             <Recipe key={item.recipe.uri} recipe={item} />
           ))}

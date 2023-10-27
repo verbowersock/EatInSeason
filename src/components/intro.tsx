@@ -1,9 +1,11 @@
 import Image from 'next/image';
 import React from 'react';
+import RecipePlaceholder from './RecipePlaceholder';
 
 const Intro = () => {
   return (
     <div>
+      <RecipePlaceholder />
       <div className='m-auto w-full text-center text-2xl sm:text-3xl md:w-2/3 md:text-4xl lg:text-5xl lg:leading-relaxed'>
         Welcome to Eat In Season:
         <br />

@@ -3,6 +3,10 @@ const nextConfig = {
   images: {
     domains: ['edamam-product-images.s3.amazonaws.com'],
   },
+
+  experimental: {
+    serverActions: true,
+  },
 };
 
 module.exports = nextConfig;

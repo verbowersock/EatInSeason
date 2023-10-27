@@ -1,25 +1,25 @@
-export type IngredientType = {
+type IngredientType = {
   label: string;
   selected: boolean;
   onChange: (selected: boolean) => void;
 };
 
-export type PlantType = {
+type PlantType = {
   id: number;
   file: string;
   label: string;
 };
 
-export interface PlantProps extends PlantType {
+interface PlantProps extends PlantType {
   selected?: boolean;
 }
 
-export type RecipeListProps = {
+type RecipeListProps = {
   ingredients: IngredientType[];
   onSelectIngredient: (label: string) => void;
 };
 
-export type RecipeType = {
+type RecipeType = {
   recipe: {
     label: string;
     image: string;
@@ -38,18 +38,19 @@ export type RecipeType = {
   };
 };
 
-export type UserRecipeType = {
+type UserRecipeType = {
+  uri: any;
   id: number;
   recipe_content: RecipeType;
 };
 
-export type PlantRequestProps = {
+type PlantRequestProps = {
   userId: string;
   token: string;
   plantId?: number;
 };
 
-export type RecipeRequestProps = {
+type RecipeRequestProps = {
   userId: string;
   token: string;
   recipe?: RecipeType;
