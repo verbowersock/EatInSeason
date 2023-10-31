@@ -4,7 +4,6 @@ import Image from 'next/image';
 import React from 'react';
 
 const Recipe = ({ recipe }: { recipe: RecipeType }) => {
-  console.log(recipe);
   const { userId, getToken } = useAuth();
   const { label, image, ingredientLines, url, calories, images } =
     recipe.recipe;
@@ -13,13 +12,13 @@ const Recipe = ({ recipe }: { recipe: RecipeType }) => {
     recipe.recipe.cuisineType[0].charAt(0).toUpperCase() +
     recipe.recipe.cuisineType[0].slice(1);
 
-  const addToFavorites = async (recipe: RecipeType) => {
+  const addToFavorites = async (recipe_id: string) => {
     try {
       const token = await getToken({ template: 'supabase' });
       const result = await addUserRecipe({
         userId,
         token,
-        recipe,
+        recipe_id,
       } as RecipeRequestProps);
       console.log(result);
     } catch (error) {
@@ -72,7 +71,7 @@ const Recipe = ({ recipe }: { recipe: RecipeType }) => {
               alt='heart icon'
               width={35}
               height={35}
-              onClick={() => addToFavorites(recipe as RecipeType)}
+              onClick={() => addToFavorites(recipe._links.self.href as string)}
               className='cursor-pointer justify-self-start'
             />
             <a

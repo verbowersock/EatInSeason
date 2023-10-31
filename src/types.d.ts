@@ -20,6 +20,7 @@ type RecipeListProps = {
 };
 
 type RecipeType = {
+  _links: { self: { href: string } };
   recipe: {
     label: string;
     image: string;
@@ -39,9 +40,8 @@ type RecipeType = {
 };
 
 type UserRecipeType = {
-  uri: any;
   id: number;
-  recipe_content: RecipeType;
+  recipe_id: string;
 };
 
 type PlantRequestProps = {
@@ -53,5 +53,5 @@ type PlantRequestProps = {
 type RecipeRequestProps = {
   userId: string;
   token: string;
-  recipe?: RecipeType;
+  recipe?: string;
 };

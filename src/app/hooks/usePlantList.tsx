@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { getAllPlants, getUserPlants } from '@/db_client/supabaseRequests';
 import { useAuth } from '@clerk/nextjs';
 import { usePlantStore } from '@/stores/plantStore';
-import { PlantProps } from '@/types';
 
 const usePlantList = ({ userId }: { userId: string }) => {
   const { getToken } = useAuth();
@@ -11,6 +10,7 @@ const usePlantList = ({ userId }: { userId: string }) => {
   const [error, setError] = useState<Error>();
   useEffect(() => {
     const fetchAllPlants = async () => {
+      console.log('fetching plants');
       try {
         const token = await getToken({ template: 'supabase' });
         const allPlants = await getAllPlants(token as string);
@@ -35,6 +35,7 @@ const usePlantList = ({ userId }: { userId: string }) => {
         });
         setUserPlants(selectedPlantList as PlantProps[]);
         setLoading(false);
+        console.log('userPlants', userPlants);
       } catch (error) {
         setLoading(false);
         setError(new Error('Could not retrieve plants'));

@@ -1,15 +1,10 @@
 'use client';
 
-import React from 'react';
+import React, { Suspense } from 'react';
 import { SignedIn, SignedOut } from '@clerk/nextjs';
 import dynamic from 'next/dynamic';
-
-const RecommendedRecipes = dynamic(() => import('./RecommendedRecipes'), {
-  ssr: false,
-});
-const Intro = dynamic(() => import('./intro'), {
-  ssr: false,
-});
+import RecommendedRecipes from './RecommendedRecipes';
+import Intro from './intro';
 
 //import appid and appkey from .env
 

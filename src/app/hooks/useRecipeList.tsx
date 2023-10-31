@@ -1,5 +1,4 @@
 import { getUserRecipes } from '@/db_client/supabaseRequests';
-import { UserRecipeType } from '@/types';
 import { useAuth } from '@clerk/nextjs';
 import { useEffect, useState } from 'react';
 

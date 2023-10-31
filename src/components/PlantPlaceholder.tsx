@@ -1,16 +1,14 @@
 import React from 'react';
-import ContentLoader from 'react-content-loader';
 
 const PlantPlaceholder = (props: any) => (
-  <ContentLoader
-    speed={2}
-    viewBox='0 0 100 100'
-    backgroundColor='#f3f3f3'
-    foregroundColor='#cef0cc'
-    {...props}
-  >
-    <circle cx='50' cy='50' r='50' />
-  </ContentLoader>
+  <div className='grid grid-cols-3 gap-1 sm:grid-cols-4 sm:gap-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7'>
+    {Array.from({ length: 12 }, (_, index) => (
+      <div
+        className='h-20 w-20 rounded-full bg-gray-300 md:h-36 md:w-36'
+        key={index}
+      ></div>
+    ))}
+  </div>
 );
 
 export default PlantPlaceholder;

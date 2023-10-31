@@ -5,7 +5,6 @@ import Plant from './Plant';
 import { useAuth } from '@clerk/nextjs';
 import PlantPlaceholder from './PlantPlaceholder';
 import usePlantList from '@/app/hooks/usePlantList';
-import { PlantProps } from '@/types';
 
 const PlantList = () => {
   const { userId } = useAuth();
@@ -24,19 +23,7 @@ const PlantList = () => {
         needed throughout the growing season!
       </div>
       {loading ? (
-        <div className='grid grid-cols-3 gap-1 sm:grid-cols-4 sm:gap-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7'>
-          {Array.from({ length: 12 }, (_, index) => (
-            <div className='circle box-border' key={index}>
-              <PlantPlaceholder
-                style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}
-              />
-            </div>
-          ))}
-        </div>
+        <PlantPlaceholder />
       ) : (
         <div className='grid grid-cols-3 gap-1 sm:grid-cols-4 sm:gap-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7'>
           {userPlants.map((plant: PlantProps) => (

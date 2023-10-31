@@ -83,14 +83,14 @@ export const removeUserPlant = async ({
 export const addUserRecipe = async ({
   userId,
   token,
-  recipe,
+  recipe_id,
 }: RecipeRequestProps) => {
   const supabase = await supabaseClient(token);
   const { data, error } = await supabase
     .from('User_Recipes')
     .insert({
       userId: userId,
-      recipe_content: recipe,
+      recipe_id: recipe_id,
     })
     .select();
   if (error) {
@@ -109,7 +109,7 @@ export const removeUserRecipe = async ({
     .from('User_Recipes')
     .delete()
     .eq('userId', userId)
-    .eq('id', recipe?.recipe.uri)
+    .eq('id', recipe?.recipe_id)
     .select();
   if (error) {
     console.log('!!!ERROR', error);

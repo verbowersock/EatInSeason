@@ -26,12 +26,14 @@ const Navlinks = ({ open, onClose }: ModalProps) => {
           <Link
             href='/about'
             className={`nav_button ${open ? 'block' : 'hidden'} md:block`}
+            onClick={onClose}
           >
             About us
           </Link>
           <Link
             href='/contact'
             className={`nav_button ${open ? 'block' : 'hidden'} md:block`}
+            onClick={onClose}
           >
             Contact
           </Link>
@@ -41,6 +43,7 @@ const Navlinks = ({ open, onClose }: ModalProps) => {
           <Link
             href='/plants'
             className={`nav_button ${open ? 'block' : 'hidden'} md:flex `}
+            onClick={onClose}
           >
             Your Plants
           </Link>
@@ -48,6 +51,7 @@ const Navlinks = ({ open, onClose }: ModalProps) => {
           <Link
             href='/recipes'
             className={`nav_button ${open ? 'block' : 'hidden'} md:flex`}
+            onClick={onClose}
           >
             Your Recipes
           </Link>
@@ -55,6 +59,7 @@ const Navlinks = ({ open, onClose }: ModalProps) => {
         <Link
           href='/'
           className={`nav_button ${open ? 'block' : 'hidden'} md:hidden`}
+          onClick={onClose}
         >
           Home
         </Link>
@@ -67,6 +72,7 @@ const Navlinks = ({ open, onClose }: ModalProps) => {
           <Link
             href='/'
             className='nav_button hidden font-head !text-5xl md:block'
+            onClick={onClose}
           >
             Eat In Season
           </Link>
