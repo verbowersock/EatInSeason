@@ -1,4 +1,3 @@
-import { PlantRequestProps, RecipeRequestProps } from '@/types';
 import { supabaseClient } from './supabaseClient';
 
 import { SupabaseClient } from '@supabase/supabase-js';
@@ -83,14 +82,14 @@ export const removeUserPlant = async ({
 export const addUserRecipe = async ({
   userId,
   token,
-  recipe_id,
+  recipe,
 }: RecipeRequestProps) => {
   const supabase = await supabaseClient(token);
   const { data, error } = await supabase
     .from('User_Recipes')
     .insert({
       userId: userId,
-      recipe_id: recipe_id,
+      recipe_id: recipe,
     })
     .select();
   if (error) {
@@ -109,7 +108,7 @@ export const removeUserRecipe = async ({
     .from('User_Recipes')
     .delete()
     .eq('userId', userId)
-    .eq('id', recipe?.recipe_id)
+    .eq('id', recipe?.recipe)
     .select();
   if (error) {
     console.log('!!!ERROR', error);

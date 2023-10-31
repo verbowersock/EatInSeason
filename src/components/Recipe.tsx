@@ -12,13 +12,13 @@ const Recipe = ({ recipe }: { recipe: RecipeType }) => {
     recipe.recipe.cuisineType[0].charAt(0).toUpperCase() +
     recipe.recipe.cuisineType[0].slice(1);
 
-  const addToFavorites = async (recipe_id: string) => {
+  const addToFavorites = async (recipe: string) => {
     try {
       const token = await getToken({ template: 'supabase' });
       const result = await addUserRecipe({
         userId,
         token,
-        recipe_id,
+        recipe,
       } as RecipeRequestProps);
       console.log(result);
     } catch (error) {
