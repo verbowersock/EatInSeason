@@ -8,7 +8,6 @@ import useSWR from 'swr';
 import useRecipeList from '@/app/hooks/useRecipeList';
 import RecipePlaceholder from './RecipePlaceholder';
 import Ingredient from './Ingredient';
-import Recipe from './Recipe';
 
 const app_id = process.env.NEXT_PUBLIC_API_APP_ID;
 const app_key = process.env.NEXT_PUBLIC_API_APP_KEY;
@@ -22,13 +21,14 @@ const fetcher = async (url: string) => {
 const RecommendedRecipes = () => {
   const { userId } = useAuth();
   const [url, setUrl] = React.useState<string | null>(null);
+  const [recipeData, setRecipeData] = React.useState<RecipeType[]>();
   const {
     userPlants,
     loading: userPlantsLoading,
     error: userPlantsError,
   } = usePlantList({ userId: userId! });
   const {
-    data: userRecipes,
+    userRecipes: userRecipes,
     loading: userRecipesLoading,
     error: userRecipesError,
   } = useRecipeList({ userId: userId! });
@@ -66,11 +66,16 @@ const RecommendedRecipes = () => {
 
   useEffect(() => {
     if (swrData && userRecipes) {
-      //compare 2 arrays and find if any of the uri from userrecipes are present in swrdata
-      const matchingRecipes = userRecipes.filter((recipe) =>
-        swrData.hits.some((hit: RecipeType) => hit.recipe.uri === recipe.uri)
-      );
-      console.log('matchingRecipes', matchingRecipes);
+      console.log('swrData', swrData, 'userRecipes', userRecipes);
+      const matchingRecipes = swrData.hits.map((recipe: RecipeType) => {
+        const isSelected = userRecipes.some(
+          (userRecipe: UserRecipeType) =>
+            recipe.recipe.uri === userRecipe.recipe.uri
+        );
+        return { ...recipe, selected: isSelected };
+      });
+
+      setRecipeData(matchingRecipes);
     }
   }, [swrData]);
 
@@ -167,7 +172,7 @@ const RecommendedRecipes = () => {
                   {swrData?.count} recipes available
                 </div>
               )}
-              {swrData && <RecipeList recipes={swrData?.hits} />}
+              {swrData && <RecipeList recipes={recipeData || []} />}
               <div className='flex flex-row justify-center gap-10'>
                 {prevUrl && (
                   <button onClick={handleGoBack}>

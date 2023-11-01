@@ -1,10 +1,13 @@
-import { addUserRecipe } from '@/db_client/supabaseRequests';
+import { addUserRecipe, removeUserRecipe } from '@/db_client/supabaseRequests';
+import { useRecipeStore } from '@/stores/recipeStore';
 import { useAuth } from '@clerk/nextjs';
 import Image from 'next/image';
-import React from 'react';
+import React, { useState } from 'react';
 
 const Recipe = ({ recipe }: { recipe: RecipeType }) => {
+  const { toggleUserRecipe } = useRecipeStore((store) => store);
   const { userId, getToken } = useAuth();
+  const [selected, setSelected] = useState(recipe.selected);
   const { label, image, ingredientLines, url, calories, images } =
     recipe.recipe;
   const servings = recipe.recipe.yield;
@@ -12,17 +15,33 @@ const Recipe = ({ recipe }: { recipe: RecipeType }) => {
     recipe.recipe.cuisineType[0].charAt(0).toUpperCase() +
     recipe.recipe.cuisineType[0].slice(1);
 
-  const addToFavorites = async (recipe: string) => {
+  const toggleFavorites = async (recipe: RecipeType) => {
     try {
       const token = await getToken({ template: 'supabase' });
-      const result = await addUserRecipe({
-        userId,
-        token,
-        recipe,
-      } as RecipeRequestProps);
-      console.log(result);
+      const recipe_id = recipe._links.self.href;
+      if (!selected) {
+        const result = await addUserRecipe({
+          userId,
+          token,
+          recipe_id,
+        } as RecipeRequestProps);
+        if (result) {
+          toggleUserRecipe(recipe);
+          setSelected(true);
+        }
+      } else {
+        const result = await removeUserRecipe({
+          userId,
+          token,
+          recipe_id,
+        } as RecipeRequestProps);
+        if (result) {
+          toggleUserRecipe(recipe);
+          setSelected(false);
+        }
+      }
     } catch (error) {
-      throw new Error("Couldn't add recipe to favorites");
+      throw new Error(error.message);
     }
   };
 
@@ -67,11 +86,15 @@ const Recipe = ({ recipe }: { recipe: RecipeType }) => {
           </div>
           <div className='mb-8 flex h-16 w-full flex-shrink-0 flex-row justify-center gap-4 pl-2 sm:gap-8'>
             <Image
-              src='/assets/svg/heart.svg'
+              src={
+                selected
+                  ? '/assets/svg/heart-filled.svg'
+                  : '/assets/svg/heart.svg'
+              }
               alt='heart icon'
               width={35}
               height={35}
-              onClick={() => addToFavorites(recipe._links.self.href as string)}
+              onClick={() => toggleFavorites(recipe as RecipeType)}
               className='cursor-pointer justify-self-start'
             />
             <a

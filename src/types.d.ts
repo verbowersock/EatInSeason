@@ -20,6 +20,7 @@ type RecipeListProps = {
 };
 
 type RecipeType = {
+  selected: boolean;
   _links: { self: { href: string } };
   recipe: {
     label: string;
@@ -42,6 +43,7 @@ type RecipeType = {
 type UserRecipeType = {
   id: number;
   recipe_id: string;
+  selected: true;
 };
 
 type PlantRequestProps = {
@@ -53,5 +55,6 @@ type PlantRequestProps = {
 type RecipeRequestProps = {
   userId: string;
   token: string;
-  recipe?: string;
+  recipe?: RecipeType;
+  recipe_id?: string;
 };
