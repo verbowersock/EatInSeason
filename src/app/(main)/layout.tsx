@@ -1,6 +1,7 @@
 import '../globals.css';
 import type { Metadata } from 'next';
 import SmallHeader from '@/components/navigation/SmallHeader';
+import Footer from '@/components/Footer';
 
 export const metadata: Metadata = {
   title: 'Eat in Season',
@@ -13,9 +14,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <>
+    <div className='flex min-h-screen flex-col'>
       <SmallHeader />
-      {children}
-    </>
+      <div className='flex-1'>{children}</div>
+      <Footer />
+    </div>
   );
 }
