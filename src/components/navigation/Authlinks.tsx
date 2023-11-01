@@ -21,7 +21,7 @@ const AuthLinks = ({ open, onClose }: ModalProps) => {
         <>
           <Link
             href='sign-up'
-            className='nav_button rounded-md bg-leafyGreen px-4 text-black duration-300 ease-in-out hover:scale-110 hover:transform'
+            className='nav_button rounded-md bg-leafyGreen px-4 duration-300 ease-in-out hover:scale-110 hover:transform'
             onClick={closeMenu}
           >
             Sign Up
