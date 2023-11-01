@@ -69,7 +69,7 @@ const RecommendedRecipes = () => {
       console.log('swrData', swrData, 'userRecipes', userRecipes);
       const matchingRecipes = swrData.hits.map((recipe: RecipeType) => {
         const isSelected = userRecipes.some(
-          (userRecipe: UserRecipeType) =>
+          (userRecipe: RecipeType) =>
             recipe.recipe.uri === userRecipe.recipe.uri
         );
         return { ...recipe, selected: isSelected };

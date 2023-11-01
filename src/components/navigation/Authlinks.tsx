@@ -13,7 +13,7 @@ const AuthLinks = ({ open, onClose }: ModalProps) => {
 
   return (
     <div
-      className={`flex md:flex-row md:justify-between md:space-x-6 md:pr-6 ${
+      className={`flex md:flex-row md:justify-between md:space-x-6 md:pr-10 ${
         open ? 'ml-10 mt-6 flex flex-col space-y-6 pt-12 ' : 'hidden md:flex'
       }`}
     >
