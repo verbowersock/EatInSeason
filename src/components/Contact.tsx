@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 
 const ContactForm = () => {
-  const access_key = process.env.NEXT_EMAIL_ACCESS_KEY;
+  const access_key = process.env.NEXT_PUBLIC_EMAIL_ACCESS_KEY;
 
   const [result, setResult] = React.useState('');
 
