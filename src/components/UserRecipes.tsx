@@ -34,8 +34,8 @@ const UserRecipes = () => {
   return (
     <div className='flex flex-col gap-10'>
       {!loading && userRecipes && userRecipes.length > 0 ? (
-        <div className='flex flex-row justify-center gap-4'>
-          {userRecipes?.length} recipes saved
+        <div className='flex flex-row justify-center gap-4 pt-8 text-xl'>
+          {userRecipes?.length} recipe(s) saved
         </div>
       ) : (
         <div className='flex flex-row justify-center gap-4 pt-12 text-2xl'>
