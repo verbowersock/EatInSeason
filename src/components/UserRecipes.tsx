@@ -7,6 +7,7 @@ import RecipePlaceholder from './RecipePlaceholder';
 import useRecipeList from '@/app/hooks/useRecipeList';
 import RecipeList from './RecipeList';
 import { useRecipeStore } from '@/stores/recipeStore';
+import Link from 'next/link';
 
 const UserRecipes = () => {
   const { userId } = useAuth();
@@ -35,11 +36,17 @@ const UserRecipes = () => {
     <div className='mb-10 flex flex-col gap-10'>
       {!loading && userRecipes && userRecipes.length > 0 ? (
         <div className='flex flex-row justify-center gap-4 pt-8 text-xl'>
-          {userRecipes?.length} recipe(s) saved
+          {userRecipes?.length} recipe(s) saved. Find more
+          <Link href='/' className='text-leafyGreen'>
+            HERE
+          </Link>
         </div>
       ) : (
         <div className='flex flex-row justify-center gap-4 pt-12 text-2xl'>
-          You have not added any recipes yet.
+          You have not added any recipes yet. Find some
+          <Link href='/' className='text-leafyGreen'>
+            HERE
+          </Link>
         </div>
       )}
       {userRecipes && <RecipeList recipes={userRecipes} />}
