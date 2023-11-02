@@ -3,7 +3,7 @@ import React from 'react';
 
 const Footer = () => {
   return (
-    <div className='h-fit w-full bg-black'>
+    <div className='mt-10 h-fit w-full bg-black'>
       <div className='m-auto flex h-fit max-w-7xl flex-row place-content-between items-center px-10 py-4'>
         <Link href='/' className='font-head text-6xl text-white'>
           Eat in season
