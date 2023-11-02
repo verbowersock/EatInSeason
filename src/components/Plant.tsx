@@ -4,8 +4,6 @@ import React from 'react';
 import { addUserPlants, removeUserPlant } from '@/db_client/supabaseRequests';
 import { useAuth } from '@clerk/nextjs';
 import { usePlantStore } from '@/stores/plantStore';
-import { toast } from 'react-toastify';
-import { PlantProps, PlantRequestProps } from '@/types';
 
 const Plant = ({ file, label, selected, id }: PlantProps) => {
   const { userId, getToken } = useAuth();

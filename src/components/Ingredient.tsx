@@ -1,4 +1,3 @@
-import { IngredientType } from '@/types';
 import React from 'react';
 
 const Ingredient = ({ label, selected, onChange }: IngredientType) => {
