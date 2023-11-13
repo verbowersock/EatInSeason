@@ -39,10 +39,10 @@ const UserRecipes = () => {
   return (
     <div className='text-md my-10 w-full px-4 text-center sm:text-xl'>
       {!loading && userRecipes && userRecipes.length > 0 ? (
-        <div className='flex flex-row justify-center gap-4 py-8 text-xl'>
-          {userRecipes?.length} recipe(s) saved. Find more
+        <div className='inline-block justify-center gap-4 py-8 text-xl'>
+          {userRecipes?.length} recipe(s) saved.{' '}
           <Link href='/' className='text-leafyGreen'>
-            HERE
+            Find more here!
           </Link>
         </div>
       ) : (
