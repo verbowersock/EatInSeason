@@ -150,7 +150,7 @@ const RecommendedRecipes = () => {
             your preference. Please select at least one ingredient to see
             recipes.
           </div>
-          <div className='p-6'>
+          <div>
             {swrData?.hits?.length === 0 && (
               <div className='text-md my-10 w-full text-center sm:text-xl'>
                 Sorry, we couldn&apos;t find any recipes with those ingredients.

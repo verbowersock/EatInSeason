@@ -1,6 +1,5 @@
-import RecipePlaceholder from '@/components/RecipePlaceholder';
 import UserRecipes from '@/components/UserRecipes';
-import React, { ReactNode, Suspense } from 'react';
+import React from 'react';
 
 const UserRecipesPage = () => {
   return (

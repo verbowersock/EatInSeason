@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 
 import { useAuth } from '@clerk/nextjs';
 import RecipePlaceholder from './RecipePlaceholder';
@@ -25,7 +25,11 @@ const UserRecipes = () => {
   }, [userRecipes]);
 
   if (loading) {
-    return <RecipePlaceholder />;
+    return (
+      <div className='p-4'>
+        <RecipePlaceholder />
+      </div>
+    );
   }
 
   if (error) {
@@ -33,9 +37,9 @@ const UserRecipes = () => {
   }
 
   return (
-    <div className='mb-10 flex flex-col gap-10'>
+    <div className='text-md my-10 w-full px-4 text-center sm:text-xl'>
       {!loading && userRecipes && userRecipes.length > 0 ? (
-        <div className='flex flex-row justify-center gap-4 pt-8 text-xl'>
+        <div className='flex flex-row justify-center gap-4 py-8 text-xl'>
           {userRecipes?.length} recipe(s) saved. Find more
           <Link href='/' className='text-leafyGreen'>
             HERE
