@@ -16,6 +16,9 @@ const Navigation = () => {
   return (
     <div className='absolute left-0 top-0 w-full bg-gradient-to-b from-black/90 to-transparent'>
       <div className='z-30 m-auto flex h-20 justify-between  lg:w-full xl:w-3/4'>
+        <div className='m-auto w-full pl-6 font-head !text-4xl text-white md:hidden'>
+          Eat in Season
+        </div>
         <Navlinks open={isMenuOpen} onClose={closeMenu} />
 
         {/*Hamburger Button*/}
