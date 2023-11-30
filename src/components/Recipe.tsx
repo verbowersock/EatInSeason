@@ -65,7 +65,7 @@ const Recipe = ({ recipe }: { recipe: RecipeType }) => {
         </div>
         <div className='flex flex-1 flex-col gap-4'>
           <div className='w-full self-center  bg-lime-900/90'>
-            <h1 className='content-center py-4 text-xl text-white sm:px-4 sm:text-2xl'>
+            <h1 className='content-center px-4 py-4 text-xl text-white sm:text-2xl'>
               {label}
             </h1>
 

@@ -10,7 +10,7 @@ import Intro from './intro';
 
 const Main = () => {
   return (
-    <section className='m-auto w-full px-4 py-10 text-left lg:p-20 xl:w-3/4'>
+    <section className='m-auto w-full px-4 py-10 text-left lg:p-10 xl:w-4/5'>
       <SignedIn>
         <RecommendedRecipes />
       </SignedIn>

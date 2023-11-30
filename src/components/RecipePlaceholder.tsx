@@ -1,7 +1,7 @@
 import React from 'react';
 
 const RecipePlaceholder = () => (
-  <div className='relative m-auto mt-10 flex h-fit w-full max-w-4xl flex-grow-0 animate-pulse flex-col justify-between overflow-hidden rounded-3xl border-2 border-gray-300 p-4 sm:w-2/3 md:h-128 md:w-full md:flex-row'>
+  <div className='relative m-auto mt-10 flex h-fit w-full max-w-4xl flex-grow-0 animate-pulse flex-col justify-between overflow-hidden rounded-3xl border-2 border-gray-300 sm:w-2/3 md:h-128 md:w-full md:flex-row'>
     <div className='relative h-48 w-full flex-shrink-0 overflow-hidden bg-gray-300 sm:h-80 md:h-full md:w-6/12'></div>
     <div className='flex h-48 flex-1 flex-col gap-4 bg-white'>
       <div className=' w-full self-center'>

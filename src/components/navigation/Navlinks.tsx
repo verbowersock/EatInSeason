@@ -20,7 +20,7 @@ const Navlinks = ({ open, onClose }: ModalProps) => {
     <div className='z-30 flex w-full flex-col-reverse justify-between md:box-border md:grid md:h-full md:grid-cols-3'>
       <div
         className={`${open ? 'mt-6' : 'mt-0'}
-        ml-10 mt-6 flex flex-col space-y-6 md:col-start-1 md:m-0 md:ml-0 md:flex md:flex-row md:items-center md:space-x-6 md:space-y-0 md:px-10`}
+        ml-10 mt-6 flex flex-col justify-between space-y-4 md:col-start-1 md:m-0 md:ml-0 md:flex md:flex-row md:items-center md:space-x-2 md:space-y-0 md:px-10`}
       >
         <SignedOut>
           <Link
@@ -54,6 +54,13 @@ const Navlinks = ({ open, onClose }: ModalProps) => {
             onClick={onClose}
           >
             Your Recipes
+          </Link>
+          <Link
+            href='/'
+            className={`nav_button ${open ? 'block' : 'hidden'} md:flex`}
+            onClick={onClose}
+          >
+            Recipe Finder
           </Link>
         </SignedIn>
         <Link

@@ -52,7 +52,7 @@ body {
 }
 
 .nav_button {
-  @apply mx-10 ml-0 w-[fit-content] py-1 text-lg text-white md:ml-0 md:mr-0 md:mt-0 md:py-1 md:text-lg lg:text-xl;
+  @apply mx-0 ml-0 w-[fit-content] py-1 text-sm text-white lg:text-base;
 }
 
 .cl-userButtonTrigger {

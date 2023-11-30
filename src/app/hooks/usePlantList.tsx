@@ -35,7 +35,7 @@ const usePlantList = ({ userId }: { userId: string }) => {
         });
         setUserPlants(selectedPlantList as PlantProps[]);
         setLoading(false);
-        console.log('userPlants', userPlants);
+        console.log('userPlantsinstore', userPlants);
       } catch (error) {
         setLoading(false);
         setError(new Error('Could not retrieve plants'));

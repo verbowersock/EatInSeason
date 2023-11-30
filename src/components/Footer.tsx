@@ -16,7 +16,7 @@ const Footer = () => {
           <Link href='/contact' className='nav_button'>
             Contact
           </Link>
-          <div className='items-end pt-2 text-center text-sm text-white'>
+          <div className='items-end pt-2 text-center text-xs text-white sm:text-sm'>
             &copy; 2023 Eat In Season by Veronika Bowersock
           </div>
         </div>

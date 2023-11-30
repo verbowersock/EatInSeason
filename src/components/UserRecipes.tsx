@@ -46,8 +46,8 @@ const UserRecipes = () => {
           </Link>
         </div>
       ) : (
-        <div className='flex flex-row justify-center gap-4 pt-12 text-2xl'>
-          You have not added any recipes yet. Find some
+        <div className='text-md justify-center gap-4 pt-12 sm:text-xl'>
+          You have not added any recipes yet. Find some{' '}
           <Link href='/' className='text-leafyGreen'>
             HERE
           </Link>

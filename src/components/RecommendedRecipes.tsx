@@ -40,14 +40,18 @@ const RecommendedRecipes = () => {
   } = useSWR(url, fetcher);
 
   const [ingredients, setIngredients] = React.useState<IngredientType[]>([]);
+  const [emptyPlants, setEmptyPlants] = React.useState<boolean>(false);
 
   useEffect(() => {
     if (!userPlantsLoading) {
       const selectedPlants = userPlants.filter(
         (plant: PlantProps) => plant.selected === true
       );
+      selectedPlants.length === 0
+        ? setEmptyPlants(true)
+        : setEmptyPlants(false);
       setIngredients(selectedPlants);
-      console.log('userplants', userPlants);
+      console.log('userplantsinuseeffect', userPlants);
     }
   }, [userPlants, userPlantsLoading]);
 
@@ -118,20 +122,20 @@ const RecommendedRecipes = () => {
     throw new Error(userRecipesError.message);
   }
 
+  if (userPlantsLoading) {
+    return <div className='text-center text-xl'>Loading your plants...</div>;
+  }
+
   return (
     <section>
-      {userPlants && userPlants.length === 0 ? (
-        userPlantsLoading ? (
-          <div className='text-center text-xl'>Loading your plants...</div>
-        ) : (
-          <div className='text-md my-10 w-full text-center sm:text-xl'>
-            You don&apos;t have any plants selected. Please select some{' '}
-            <Link href='/plants' className='text-leafyGreen'>
-              HERE
-            </Link>
-            !
-          </div>
-        )
+      {emptyPlants ? (
+        <div className='text-md my-10 w-full text-center sm:text-xl'>
+          You don&apos;t have any plants selected. Please select some{' '}
+          <Link href='/plants' className='text-leafyGreen'>
+            HERE
+          </Link>
+          !
+        </div>
       ) : (
         <div className='text-md my-10 w-full text-center sm:text-xl'>
           <div className='pb-10 text-black'>
