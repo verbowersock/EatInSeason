@@ -14,10 +14,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang='en'>
-      <body className={`${main.variable} ${heading.variable}`}>
-        <ClerkProvider>{children}</ClerkProvider>
-      </body>
-    </html>
+    <ClerkProvider
+      signInFallbackRedirectUrl='/'
+      signUpFallbackRedirectUrl='/'
+      signInForceRedirectUrl='/'
+      signUpForceRedirectUrl='/'
+    >
+      {children}
+    </ClerkProvider>
   );
 }

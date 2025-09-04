@@ -25,9 +25,8 @@ const PlantList = () => {
         suggest recipes for your abundant harvest. Add or remove the plants as
         needed throughout the growing season! Once you are done, see your
         recommended recipes
-        <Link href='/'>
-          {' '}
-          <a className='text-leafyGreen'>HERE</a>
+        <Link href='/' className='text-leafyGreen'>
+          HERE
         </Link>
       </div>
       {loading ? (

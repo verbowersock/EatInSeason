@@ -126,6 +126,8 @@ const RecommendedRecipes = () => {
     return <div className='text-center text-xl'>Loading your plants...</div>;
   }
 
+  console.log("ingredients' state", ingredients);
+
   return (
     <section>
       {emptyPlants ? (
@@ -151,45 +153,53 @@ const RecommendedRecipes = () => {
               ))}
             </div>
             Check or uncheck ingredients to see different recipes depending on
-            your preference. Please select at least one ingredient to see
-            recipes.
+            your preference.
           </div>
           <div>
-            {swrData?.hits?.length === 0 && (
+            {ingredients.filter((ing) => ing.selected).length === 0 ? (
               <div className='text-md my-10 w-full text-center sm:text-xl'>
-                Sorry, we couldn&apos;t find any recipes with those ingredients.
-                <br />
-                Please try removing an ingredient or two.
+                Please select at least one ingredient to see recipes.
               </div>
+            ) : (
+              <>
+                {swrData?.hits?.length === 0 ? (
+                  <div className='text-md my-10 w-full text-center sm:text-xl'>
+                    Sorry, we couldn&apos;t find any recipes with those
+                    ingredients.
+                    <br />
+                    Please try removing an ingredient or two.
+                  </div>
+                ) : null}
+                <div className='flex flex-col gap-10'>
+                  {isSWRLoading ? (
+                    <div>
+                      {Array(6)
+                        .fill(null)
+                        .map((_, index) => (
+                          <RecipePlaceholder key={index} />
+                        ))}
+                    </div>
+                  ) : (
+                    <div className='flex flex-row justify-center gap-4'>
+                      {swrData?.count} recipes available
+                    </div>
+                  )}
+                  {swrData && <RecipeList recipes={recipeData || []} />}
+                  <div className='flex flex-row justify-center gap-10'>
+                    {prevUrl && (
+                      <button onClick={handleGoBack}>
+                        &lt;&lt;&lt; Previous 20 recipes
+                      </button>
+                    )}
+                    {nextUrl && (
+                      <button onClick={handleLoadMore}>
+                        Next 20 recipes &gt; &gt; &gt;
+                      </button>
+                    )}
+                  </div>
+                </div>
+              </>
             )}
-            <div className='flex flex-col gap-10'>
-              {isSWRLoading ? (
-                <div>
-                  {Array(6)
-                    .fill(null)
-                    .map((_, index) => (
-                      <RecipePlaceholder key={index} />
-                    ))}
-                </div>
-              ) : (
-                <div className='flex flex-row justify-center gap-4'>
-                  {swrData?.count} recipes available
-                </div>
-              )}
-              {swrData && <RecipeList recipes={recipeData || []} />}
-              <div className='flex flex-row justify-center gap-10'>
-                {prevUrl && (
-                  <button onClick={handleGoBack}>
-                    &lt;&lt;&lt; Previous 20 recipes
-                  </button>
-                )}
-                {nextUrl && (
-                  <button onClick={handleLoadMore}>
-                    Next 20 recipes &gt; &gt; &gt;
-                  </button>
-                )}
-              </div>
-            </div>
           </div>
         </div>
       )}

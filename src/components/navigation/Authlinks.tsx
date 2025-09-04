@@ -40,7 +40,6 @@ const AuthLinks = ({ open, onClose }: ModalProps) => {
                   avatarBox: 'h-8 w-8',
                 },
               }}
-              afterSignOutUrl='/'
             />
             <SignOutButton>
               <div className='nav_button !mx-2 mt-6 flex'>
@@ -58,7 +57,7 @@ const AuthLinks = ({ open, onClose }: ModalProps) => {
           </div>
         ) : (
           <div className='hidden md:block md:px-1'>
-            <UserButton afterSignOutUrl='/' />
+            <UserButton />
           </div>
         )}
       </SignedIn>
