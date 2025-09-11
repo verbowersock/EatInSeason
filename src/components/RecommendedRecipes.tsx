@@ -13,8 +13,10 @@ const app_id = process.env.NEXT_PUBLIC_API_APP_ID;
 const app_key = process.env.NEXT_PUBLIC_API_APP_KEY;
 
 const fetcher = async (url: string) => {
-  console.log('fetcher', url);
   const res = await fetch(url);
+  if (res.status === 429) {
+    return { error429: true };
+  }
   return res.json();
 };
 
@@ -51,7 +53,6 @@ const RecommendedRecipes = () => {
         ? setEmptyPlants(true)
         : setEmptyPlants(false);
       setIngredients(selectedPlants);
-      console.log('userplantsinuseeffect', userPlants);
     }
   }, [userPlants, userPlantsLoading]);
 
@@ -69,9 +70,8 @@ const RecommendedRecipes = () => {
   const [nextUrl, setNextUrl] = React.useState<string | null>(null);
 
   useEffect(() => {
-    if (swrData && userRecipes) {
-      console.log('swrData', swrData, 'userRecipes', userRecipes);
-      const matchingRecipes = swrData.hits.map((recipe: RecipeType) => {
+    if (swrData && userRecipes && swrData?.hits) {
+      const matchingRecipes = swrData?.hits.map((recipe: RecipeType) => {
         const isSelected = userRecipes.some(
           (userRecipe: RecipeType) =>
             recipe.recipe.uri === userRecipe.recipe.uri
@@ -81,14 +81,12 @@ const RecommendedRecipes = () => {
 
       setRecipeData(matchingRecipes);
     }
-  }, [swrData]);
+  }, [swrData, userRecipes]);
 
   useEffect(() => {
     const selectedIngredients = ingredients
       .filter((ingredient) => ingredient.selected)
       .map((ingredient) => ingredient.label);
-    console.log('selectedIngredients', selectedIngredients);
-    console.log('ingredients', ingredients);
 
     selectedIngredients.length > 0
       ? setUrl(
@@ -112,8 +110,15 @@ const RecommendedRecipes = () => {
     setUrl(prevUrl);
   };
 
-  if (swrError) {
-    throw new Error(swrError.message);
+  if (swrData?.error429) {
+    return (
+      <section>
+        <div className='text-center text-xl text-red-600'>
+          Too many requests to the recipe API. Please wait a moment and refresh
+          the page.
+        </div>
+      </section>
+    );
   }
   if (userPlantsError) {
     throw new Error(userPlantsError.message);
@@ -125,8 +130,6 @@ const RecommendedRecipes = () => {
   if (userPlantsLoading) {
     return <div className='text-center text-xl'>Loading your plants...</div>;
   }
-
-  console.log("ingredients' state", ingredients);
 
   return (
     <section>

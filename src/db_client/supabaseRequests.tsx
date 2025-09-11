@@ -72,10 +72,8 @@ export const removeUserPlant = async ({
     .eq('plant', plantId)
     .select();
   if (error) {
-    console.log('!!!ERROR', error);
     return error;
   }
-  console.log(data);
   return data;
 };
 
@@ -111,9 +109,7 @@ export const removeUserRecipe = async ({
     .eq('recipe_id', recipe_id)
     .select();
   if (error) {
-    console.log('!!!ERROR', error);
     return error;
   }
-  console.log(data);
   return data;
 };

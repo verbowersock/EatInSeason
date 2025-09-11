@@ -20,9 +20,7 @@ const UserRecipes = () => {
 
   const { userRecipes } = useRecipeStore((store) => store);
 
-  useEffect(() => {
-    console.log('userRecipesFromStore', userRecipes);
-  }, [userRecipes]);
+  useEffect(() => {}, [userRecipes]);
 
   if (loading) {
     return (

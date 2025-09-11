@@ -47,7 +47,6 @@ const useRecipeList = ({ userId }: UseRecipeListProps) => {
               })
               .catch((error) => console.error('Error:', error));
           }
-          console.log('updatedRecipes', data);
         }
       } catch (error) {
         setError(new Error('Could not retrieve recipes'));

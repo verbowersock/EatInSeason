@@ -20,7 +20,9 @@ export default function RootLayout({
       signInForceRedirectUrl='/'
       signUpForceRedirectUrl='/'
     >
-      {children}
+      <html lang='en'>
+        <body>{children}</body>
+      </html>
     </ClerkProvider>
   );
 }

@@ -10,7 +10,6 @@ const usePlantList = ({ userId }: { userId: string }) => {
   const [error, setError] = useState<Error>();
   useEffect(() => {
     const fetchAllPlants = async () => {
-      console.log('fetching plants');
       try {
         const token = await getToken({ template: 'supabase' });
         const allPlants = await getAllPlants(token as string);
@@ -35,7 +34,6 @@ const usePlantList = ({ userId }: { userId: string }) => {
         });
         setUserPlants(selectedPlantList as PlantProps[]);
         setLoading(false);
-        console.log('userPlantsinstore', userPlants);
       } catch (error) {
         setLoading(false);
         setError(new Error('Could not retrieve plants'));

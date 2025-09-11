@@ -21,10 +21,8 @@ const ContactForm = () => {
     }).then((res) => res.json());
 
     if (res.success) {
-      console.log('Success', res);
       setResult(`Email sent successfully! We will be in touch soon.`);
     } else {
-      console.log('Error', res);
       setResult(`Something went wrong! Please try again.`);
     }
   };
