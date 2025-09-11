@@ -110,12 +110,33 @@ const RecommendedRecipes = () => {
     setUrl(prevUrl);
   };
 
+  const [countdown, setCountdown] = React.useState(60);
+  React.useEffect(() => {
+    if (swrData?.error429 && countdown > 0) {
+      const timer = setTimeout(() => setCountdown(countdown - 1), 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [swrData?.error429, countdown]);
+
   if (swrData?.error429) {
     return (
       <section>
         <div className='text-center text-xl text-red-600'>
-          Too many requests to the recipe API. Please wait a moment and refresh
-          the page.
+          Too many requests to the recipe API.
+          <br />
+          Please wait <span className='font-bold'>{countdown}</span> seconds.
+          <br />
+          <button
+            className={`mt-4 rounded px-4 py-2 text-white transition-colors duration-200 ${
+              countdown > 0
+                ? 'cursor-not-allowed bg-gray-400'
+                : 'bg-leafyGreen hover:bg-leafyGreen/80'
+            }`}
+            onClick={() => window.location.reload()}
+            disabled={countdown > 0}
+          >
+            Refresh
+          </button>
         </div>
       </section>
     );
